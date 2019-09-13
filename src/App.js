@@ -33,43 +33,26 @@ const List = (props) => {
 
   return(
     <div>
-        {contactList.map(contact => { return (<div key={contact.id}>{contact.name}</div>)  })}
+        {contactList.map(contact => { 
+          return (
+
+              // <div key={contact.id}>{contact.name}</div>
+
+              <div key={contact.id} className="listWrapper">
+                  <div className="listBlock">
+                      <div className="nameKeep">
+                          <li>{contact.name}</li>
+                          <input type="checkbox" name="toDelete" value={contact.toDelete}></input>
+                    </div>
+                    <li>{contact.mobile}</li>
+                </div>
+              </div>
+              )  
+          })}
     </div>
   )
   
 }
-
-
-
-
-{/* <div className="listWrapper">
-<div className="listBlock">
-     <div className="nameKeep">
-         <li key={contact.id}>{contact.name}</li>
-         <input type="checkbox" name="show" value={contact.toDelete}></input>
-      </div>
-     <li>{contact.mobile}</li>
-</div>
-</div> */}
-
-
-
-
-
-
-// return (
-//  ...
-//         <div className="buttons">
-//           {this.state.keys.map(key => {
-//             return <Button handleButton={this.handleButton} data={key} />
-//           })}
-//         </div>
-//  ...
-// );
-
-
-
-
 
 
 
