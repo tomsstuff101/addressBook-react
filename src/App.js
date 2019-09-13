@@ -26,7 +26,7 @@ const Title = () => {
 
 
 const List = (props) => {
-  // theState
+  // theState    checkHandler
   console.log('list...')
   console.log(`props.theState -->  ${props.theState.contacts[0].name}`)
   const contactList = props.theState.contacts
@@ -35,14 +35,11 @@ const List = (props) => {
     <div>
         {contactList.map(contact => { 
           return (
-
-              // <div key={contact.id}>{contact.name}</div>
-
               <div key={contact.id} className="listWrapper">
                   <div className="listBlock">
                       <div className="nameKeep">
                           <li>{contact.name}</li>
-                          <input type="checkbox" name="toDelete" value={contact.toDelete}></input>
+                          <input type="checkbox" name="toDelete" value={contact.toDelete} onChange={() => this.checkDeleteHandler()}></input>
                     </div>
                     <li>{contact.mobile}</li>
                 </div>
@@ -88,7 +85,7 @@ formHandler = (e) => {
   let theName = e.target.name.value
   let theMobile = e.target.mobile.value
   // toDelete will be used to splice the contacts array if delete button clicked
-  let newContact = {id:newId, name: theName, mobile: theMobile, toDelete:true}
+  let newContact = {id:newId, name: theName, mobile: theMobile, toDelete:false}
   console.log(`newContact -->  ${newContact.name}  ${newContact.mobile}`)
   currentContacts.push(newContact)
   this.setState({contacts: currentContacts})
@@ -104,10 +101,27 @@ formHandler = (e) => {
 
 
 
+checkDeleteHandler = (e)=>{
+  console.log(`check delete ticked....`)
+  console.log(`event target -->  ${e}`)
+}
 
 
-theDelete = ()=>{
+
+
+theDeleteHandler = ()=>{
   console.log(`delete....`)
+  let deleteArr = []
+    this.state.contacts.forEach((contact, index) => { 
+      // scan through all of the list and remove records that have 'to Delete: true'
+      if(contact.toDelete === true){
+          deleteArr.push(index)
+      }
+      console.log(`deleteArr -->  ${deleteArr}`)
+    })
+
+    // Now cycle through the woule contacts and delete
+    // '  contacts.splice(index,1) ' 
 }
 
 
@@ -117,7 +131,6 @@ theDelete = ()=>{
         <div className="addressBookWrapper">
         <Title/>
         {/*use props to pass -bind?- listHandler to the List components*/}
-
         {/* <NewNumbers theForm={()=>this.formHandler}/> */}
 
         <form className="newNumbers" onSubmit={this.formHandler}>
@@ -126,15 +139,17 @@ theDelete = ()=>{
           <button className="submit" type="submit">add</button>
         </form>
 
-        <List theState={this.state}/>
+        <List theState={this.state} checkHandler={this.checkDeleteHandler}/>
 
-        <div className="deleteButt" onClick={this.theDelete}>Delete</div>
+        <div className="deleteButt" onClick={this.theDeleteHandler}>Delete</div>
         
         </div>
       )
     }
 
 }
+
+//   <ClearButt theHandler={this.operatorHandler}/>
 
 
 class App extends React.Component{
