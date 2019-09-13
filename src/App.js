@@ -29,20 +29,47 @@ const List = (props) => {
   // theState
   console.log('list...')
   console.log(`props.theState -->  ${props.theState.contacts[0].name}`)
+  const contactList = props.theState.contacts
+
   return(
-    <div className="listWrapper">
-      <div className="listBlock">
-            <div className="nameKeep">
-                <p>{props.theState.contacts[0].name}</p>
-                <input type="checkbox" name="show" value={props.theState.contacts[0].toDelete}></input>
-            </div>
-            <p>{props.theState.contacts[0].mobile}</p>
-      </div>
+    <div>
+        {contactList.map(contact => { return (<div key={contact.id}>{contact.name}</div>)  })}
     </div>
   )
-
-
+  
 }
+
+
+
+
+{/* <div className="listWrapper">
+<div className="listBlock">
+     <div className="nameKeep">
+         <li key={contact.id}>{contact.name}</li>
+         <input type="checkbox" name="show" value={contact.toDelete}></input>
+      </div>
+     <li>{contact.mobile}</li>
+</div>
+</div> */}
+
+
+
+
+
+
+// return (
+//  ...
+//         <div className="buttons">
+//           {this.state.keys.map(key => {
+//             return <Button handleButton={this.handleButton} data={key} />
+//           })}
+//         </div>
+//  ...
+// );
+
+
+
+
 
 
 
@@ -54,7 +81,7 @@ class AddressBook extends React.Component{
       contacts: [  
                   {id: 0, 
                   name:"no records yet", 
-                  mobile:"0000", 
+                  mobile:"", 
                   toDelete:false
                   }
                 ]  
